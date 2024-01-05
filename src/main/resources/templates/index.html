@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <select name="age" id="tel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+    <select name="age" id="age">
+        <option value="10">10살</option>
+        <option value="20">20살</option>
+        <option value="30">30살</option>
+    </select>
+    <button>데이터 받기</button>
+    <button id="btn2">데이터 보내기</button>
+    <div> <span>점포명</span> / <span>주소</span> </div>
+    <div> <span>점포명</span> / <span>주소</span> </div>
+    <div> <span>점포명</span> / <span>주소</span> </div>
+    <div> <span>점포명</span> / <span>주소</span> </div>
+    <div> <span>점포명</span> / <span>주소</span> </div>
+</body>
+</html>
+<script>
+    const btn = document.querySelector('button');
+    const btn2 = document.getElementById('btn2');
+    const select1 = document.getElementById('tel');
+    const select2 = document.getElementById('age');
+
+
+    btn.onclick = () => {
+        fetch("/message")
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                // console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    document.body.insertAdjacentHTML('beforeend', `<div> <span>${data[i].BZ_NM}</span> / <span>${data[i].GNG_CS}</span> </div>`);
+
+                    console.log("점포명: " + data[i].BZ_NM);
+                    console.log("점포주소: " + data[i].GNG_CS);
+                }
+            });
+    }
+
+    btn2.onclick = () => {
+        // REST 요청
+        // 1번째 방법 : @PathVariable
+        // fetch(`/data/${select1.value}/${select2.value}`);
+        // 2번쨰 방법 : 파라미터로 보냄. (Request Param)
+        fetch(`/data?tel=${select1.value}&age=${select2.value}`);
+    }
+
+</script>
