@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text">
+    <button>클릭해봐!</button>
+
+
+    <form action="/input/1">
+        <button>ㄱㄱ</button>
+    </form>
+</body>
+</html>
+<script>
+    const input = document.querySelector('input');
+    const btn = document.querySelector('button');
+    btn.onclick = () => {
+        // 1번째 방법으로. path(경로)에 값을 실어서 보낸다. Rest 방식. ? 파라미터를 지양
+        // fetch(`/input/${input.value}`)
+        //     .then((response) => {
+        //         return response.text()
+        //     })
+        //     .then(data => {
+        //         document.body.insertAdjacentHTML(`beforeend`, `<div>${data}</div>`)
+        //     });
+
+        // 2번째 방법은, 파라미터로 보낸다.
+        fetch(`/input?number=${input.value}`)
+            .then((response) => {
+                return response.text()
+            })
+            .then(data => {
+                document.body.insertAdjacentHTML(`beforeend`, `<div>${data}</div>`)
+            });
+    }
+</script>
