@@ -7,11 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class PracticeApplicationTests {
 	@Autowired
-	MainService mainService;
+	public MainService mainService;
 
 	@Test
 	void contextLoads() {
-		mainService.request();
+		System.out.println(mainService.select(1, 2));
 	}
 
 }
+
